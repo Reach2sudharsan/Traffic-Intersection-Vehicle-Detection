@@ -1,2 +1,4 @@
 # SmarTransit
-A Computer Vision and Deep Learning Approach to Improve Traffic Along Intersections
+A series of projects applying Computer Vision and Deep Learning to traffic
+
+
