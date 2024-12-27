@@ -450,7 +450,6 @@ def simTime():
             showStats()
             os._exit(1) 
 
-
 class Main:
     global allowedVehicleTypesList
     i = 0
@@ -508,7 +507,7 @@ class Main:
         # background = pygame.image.load('images/intersection.png')
         screen.blit(background,(0,0))   # display background in simulation
 
-        for i in range(0,noOfSignals):  # display signal and set timer according to current status: green, yello, or red
+        for i in range(0,noOfSignals):  # display signal and set timer according to current status: green, yellow, or red
             if(i==currentGreen):
                 if(currentYellow==1):
                     signals[i].signalText = signals[i].yellow
@@ -553,33 +552,82 @@ class Main:
             background = pygame.image.load('images/intersection_placeholder_inverted.png')
             screen.blit(background, (0, 0))  # Display new background
             # Re-render all vehicles and objects
-            for vehicle_group in vehicles.values():
-                for lane in vehicle_group.values():
-                    if isinstance(lane, list):
-                        for vehicle in lane:
-                            if isinstance(vehicle, Vehicle):
-                                vehicle.render(screen)
-            # Save the screenshot
+            for i in range(0, noOfSignals):
+                if i == currentGreen:
+                    if currentYellow == 1:
+                        signals[i].signalText = signals[i].yellow
+                        screen.blit(yellowSignal, signalCoods[i])
+                    else:
+                        signals[i].signalText = signals[i].green
+                        screen.blit(greenSignal, signalCoods[i])
+                else:
+                    if signals[i].red <= 10:
+                        signals[i].signalText = signals[i].red
+                    else:
+                        signals[i].signalText = "---"
+                    screen.blit(redSignal, signalCoods[i])
+
+            for i in range(0, noOfSignals):
+                signalTexts[i] = font.render(str(signals[i].signalText), True, white, black)
+                screen.blit(signalTexts[i], signalTimerCoods[i])
+
+            for i in range(0, noOfSignals):
+                displayText = vehicles[directionNumbers[i]]['crossed']
+                vehicleCountTexts[i] = font.render(str(displayText), True, black, white)
+                screen.blit(vehicleCountTexts[i], vehicleCountCoods[i])
+
+            timeElapsedText = font.render(("Time Elapsed: " + str(timeElapsed)), True, black, white)
+            screen.blit(timeElapsedText, timeElapsedCoods)
+
+            for vehicle in simulation:
+                screen.blit(vehicle.image, [vehicle.x, vehicle.y])
+
+            pygame.display.flip()
+
             placeholder_screenshot_path = os.path.join("screenshots", f"screenshot_{timestamp}_placeholder_inverted.png")
             pygame.image.save(screen, placeholder_screenshot_path)
 
             # Second screenshot with 'intersection.png'
             background = pygame.image.load('images/intersection.png')
             screen.blit(background, (0, 0))  # Display original background
-            # Re-render all vehicles and objects again
-            for vehicle_group in vehicles.values():
-                for lane in vehicle_group.values():
-                    if isinstance(lane, list):
-                        for vehicle in lane:
-                            if isinstance(vehicle, Vehicle):
-                                vehicle.render(screen)
-            # Save the screenshot
+
+            for i in range(0, noOfSignals):
+                if i == currentGreen:
+                    if currentYellow == 1:
+                        signals[i].signalText = signals[i].yellow
+                        screen.blit(yellowSignal, signalCoods[i])
+                    else:
+                        signals[i].signalText = signals[i].green
+                        screen.blit(greenSignal, signalCoods[i])
+                else:
+                    if signals[i].red <= 10:
+                        signals[i].signalText = signals[i].red
+                    else:
+                        signals[i].signalText = "---"
+                    screen.blit(redSignal, signalCoods[i])
+
+            for i in range(0, noOfSignals):
+                signalTexts[i] = font.render(str(signals[i].signalText), True, white, black)
+                screen.blit(signalTexts[i], signalTimerCoods[i])
+
+            for i in range(0, noOfSignals):
+                displayText = vehicles[directionNumbers[i]]['crossed']
+                vehicleCountTexts[i] = font.render(str(displayText), True, black, white)
+                screen.blit(vehicleCountTexts[i], vehicleCountCoods[i])
+
+            timeElapsedText = font.render(("Time Elapsed: " + str(timeElapsed)), True, black, white)
+            screen.blit(timeElapsedText, timeElapsedCoods)
+
+            for vehicle in simulation:
+                screen.blit(vehicle.image, [vehicle.x, vehicle.y])
+
+            pygame.display.flip()
+
             intersection_screenshot_path = os.path.join("screenshots", f"screenshot_{timestamp}.png")
             pygame.image.save(screen, intersection_screenshot_path)
 
             # Update the last screenshot time
             last_screenshot_time = current_time
-
 
         clock.tick(fps)
 
