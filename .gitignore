@@ -3,3 +3,5 @@ traffic-signs-preprocessed/
 traffic_signs_preprocessed/
 datasets/
 traffic_sim/
+SimTrafficView15K/
+sample/
