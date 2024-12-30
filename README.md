@@ -15,7 +15,7 @@ This project focuses on detecting vehicles at a simulated traffic intersection b
 - **Annotations**: YOLOv5-compatible `.txt` format labels for bounding boxes.
 - **Classes**: Includes classes such as `Bike`, `Bus`, `Car`, `Truck`, etc.
 - **Format**: 
-  - Images in `.jpg` format.
+  - Images in `.png` format.
   - Labels stored in `.txt` files with YOLOv5 format.
 
 
