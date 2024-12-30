@@ -1,4 +1,4 @@
-# **Vehicle Detection On Simulated Traffic Intersection**
+# **Traffic Intersection Vehicle Detection**
 
 
 ## Overview
