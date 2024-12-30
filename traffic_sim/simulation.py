@@ -53,7 +53,7 @@ randomGreenSignalTimer = True
 randomGreenSignalTimerRange = [10,20]
 
 timeElapsed = 0
-simulationTime = 1500
+simulationTime = 5000
 timeElapsedCoods = (1100,50)
 vehicleCountTexts = ["0", "0", "0", "0"]
 vehicleCountCoods = [(480,210),(880,210),(880,550),(480,550)]
@@ -492,7 +492,7 @@ class Main:
     clock = pygame.time.Clock()
     fps = 30
        
-    screenshot_interval = 0.1  # Take a screenshot every 0.1 second
+    screenshot_interval = 1  # Take a screenshot every second
     last_screenshot_time = time.time()
 
     while True:
